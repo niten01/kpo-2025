@@ -1,14 +1,15 @@
-package studying.services;
+package studying;
 
-import studying.domains.Car;
-import studying.domains.Customer;
-import studying.interfaces.ICarFactory;
-import studying.interfaces.ICarProvider;
+import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-public class CarService implements ICarProvider {
+@ToString
+public class CarService implements ICarProvider{
 
     private final List<Car> cars = new ArrayList<>();
 
@@ -19,11 +20,12 @@ public class CarService implements ICarProvider {
 
         var filteredCars = cars.stream().filter(car -> car.isCompatible(customer)).toList();
 
-        var firstCar = filteredCars.stream().findFirst();
+        if(filteredCars.isEmpty())
+            return null;
 
-        firstCar.ifPresent(cars::remove);
-
-        return firstCar.orElse(null);
+        var firstCar = filteredCars.stream().findFirst().get();
+        cars.remove(firstCar);
+        return firstCar;
     }
 
     public <TParams> void addCar(ICarFactory<TParams> carFactory, TParams carParams)

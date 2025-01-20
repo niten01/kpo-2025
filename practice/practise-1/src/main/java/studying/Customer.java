@@ -13,6 +13,8 @@ public class Customer {
     @Setter
     private Car car;
 
+    private
+
     public Customer(String name) {
         this.name = name;
     }
