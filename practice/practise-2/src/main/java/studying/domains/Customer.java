@@ -7,6 +7,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class Customer {
+
     private final String name;
 
     private final int legPower;
