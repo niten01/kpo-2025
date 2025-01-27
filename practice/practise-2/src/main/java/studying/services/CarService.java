@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Car provider implementation
+ */
 @ToString
 public class CarService implements ICarProvider {
 
@@ -19,6 +22,10 @@ public class CarService implements ICarProvider {
 
     private int carNumberCounter = 0;
 
+    /**
+     * @param customer customer to provide car with
+     * @return car for customer
+     */
     @Override
     public Car takeCar(Customer customer) {
 
@@ -32,6 +39,11 @@ public class CarService implements ICarProvider {
         return firstCar;
     }
 
+    /**
+     * @param carFactory factory to create new car
+     * @param carParams parameters for car creation
+     * @param <TParams> deduced car parameter type
+     */
     public <TParams> void addCar(ICarFactory<TParams> carFactory, TParams carParams)
     {
         // создаем автомобиль из переданной фабрики

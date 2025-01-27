@@ -6,6 +6,10 @@ import studying.interfaces.ICustomerProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Storage & provider for customers
+ */
 @ToString
 public class CustomerStorage implements ICustomerProvider {
     private List<Customer> customers = new ArrayList<>();
@@ -15,8 +19,11 @@ public class CustomerStorage implements ICustomerProvider {
         return customers;
     }
 
+    /**
+     * @param customer customer to add to storage
+     */
     public void addCustomer(Customer customer)
     {
-        customers.add(customer); // просто добавляем покупателя в список
+        customers.add(customer);
     }
 }
