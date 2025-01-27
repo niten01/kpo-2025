@@ -1,6 +1,10 @@
-package studying;
+package studying.services;
 
 import lombok.ToString;
+import studying.domains.Car;
+import studying.domains.Customer;
+import studying.interfaces.ICarFactory;
+import studying.interfaces.ICarProvider;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -9,7 +13,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @ToString
-public class CarService implements ICarProvider{
+public class CarService implements ICarProvider {
 
     private final List<Car> cars = new ArrayList<>();
 
