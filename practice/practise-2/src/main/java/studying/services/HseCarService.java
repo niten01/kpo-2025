@@ -17,6 +17,9 @@ public class HseCarService {
         this.customerProvider = customersProvider;
     }
 
+    /**
+     * Try to provide customers with cars
+     */
     public void sellCars()
     {
         // получаем список покупателей
