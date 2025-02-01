@@ -30,7 +30,7 @@ public class Main {
         carService.addCar(flyingCarFactory, EmptyEngineParams.DEFAULT);
         carService.addCar(handCarFactory, EmptyEngineParams.DEFAULT);
 
-        System.out.println(customerStorage);
+        System.out.println(customerStorage.toString());
 
         hseCarService.sellCars();
 
