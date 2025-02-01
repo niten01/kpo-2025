@@ -1,6 +1,5 @@
 package studying;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
@@ -13,9 +12,9 @@ import java.util.Objects;
 public class FactoryAF {
     private int carNumber;
 
-    private List<Car> cars = new ArrayList<>();
+    private final List<Car> cars = new ArrayList<>();
 
-    private List<Customer> customers = new ArrayList<>();
+    private final List<Customer> customers = new ArrayList<>();
 
     public void addCustomer(Customer customer) {
         this.customers.add(customer);

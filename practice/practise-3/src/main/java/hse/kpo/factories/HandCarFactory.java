@@ -6,6 +6,9 @@ import hse.kpo.interfaces.ICarFactory;
 import hse.kpo.params.EmptyEngineParams;
 import org.springframework.stereotype.Component;
 
+/**
+ * Factory for hand cars.
+ */
 @Component
 public class HandCarFactory implements ICarFactory<EmptyEngineParams> {
     @Override

@@ -1,7 +1,7 @@
 package studying;
 
 public class Engine {
-    private int size;
+    private final int size;
     public static String TYPE = "ELECTRIC";
 
     public Engine(int size) {

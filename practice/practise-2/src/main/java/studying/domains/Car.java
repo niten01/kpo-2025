@@ -10,10 +10,10 @@ import studying.interfaces.IEngine;
 @ToString
 public class Car {
 
-    private IEngine engine;
+    private final IEngine engine;
 
     @Getter
-    private int VIN;
+    private final int VIN;
 
     /**
      * @param VIN car identifier

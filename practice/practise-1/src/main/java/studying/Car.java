@@ -6,10 +6,10 @@ import lombok.ToString;
 @ToString
 public class Car {
 
-    private Engine engine;
+    private final Engine engine;
 
     @Getter
-    private int VIN;
+    private final int VIN;
 
     public Car(int VIN, int engineSize) {
         this.VIN = VIN;

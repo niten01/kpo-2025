@@ -3,6 +3,9 @@ package hse.kpo.interfaces;
 
 import hse.kpo.domains.Customer;
 
+/**
+ * Engine interface.
+ */
 public interface IEngine {
 
     /**

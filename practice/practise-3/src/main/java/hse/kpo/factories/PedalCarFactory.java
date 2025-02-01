@@ -7,12 +7,15 @@ import hse.kpo.interfaces.ICarFactory;
 import hse.kpo.params.PedalEngineParams;
 import org.springframework.stereotype.Component;
 
+/**
+ * Factory for pedal cars.
+ */
 @Component
 public class PedalCarFactory implements ICarFactory<PedalEngineParams> {
     @Override
     public Car createCar(PedalEngineParams carParams, int carNumber) {
-        var engine = new PedalEngine(carParams.pedalSize()); // создаем двигатель на основе переданных параметров
+        var engine = new PedalEngine(carParams.pedalSize());
 
-        return new Car(carNumber, engine); // возвращаем собранный автомобиль с установленным двигателем и определенным номером
+        return new Car(carNumber, engine);
     }
 }
