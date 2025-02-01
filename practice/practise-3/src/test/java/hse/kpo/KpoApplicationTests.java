@@ -39,15 +39,17 @@ class KpoApplicationTests {
 
     @Test
     @DisplayName("Pedal car factory : create car")
-    void pedalCarFactoryCreateCar() {
-        pedalCarFactory.createCar(new PedalEngineParams(6), 1);
-        pedalCarFactory.createCar(new PedalEngineParams(-1), 2);
-        pedalCarFactory.createCar(new PedalEngineParams(10), 3);
+    void pedalCarFactoryCreateCarTest() {
+        var pedalParamsMock = Mockito.mock(PedalEngineParams.class);
+        Mockito.when(pedalParamsMock.pedalSize()).thenReturn(1);
+        pedalCarFactory.createCar(pedalParamsMock, 1);
+        pedalCarFactory.createCar(pedalParamsMock, 2);
+        pedalCarFactory.createCar(pedalParamsMock, 3);
     }
 
     @Test
     @DisplayName("Hand car factory : create car")
-    void handCarFactoryCreateCar() {
+    void handCarFactoryCreateCarTest() {
         handCarFactory.createCar(EmptyEngineParams.DEFAULT, 1);
         handCarFactory.createCar(EmptyEngineParams.DEFAULT, 2);
         handCarFactory.createCar(EmptyEngineParams.DEFAULT, 3);
@@ -55,7 +57,7 @@ class KpoApplicationTests {
 
     @Test
     @DisplayName("Flying car factory : create car")
-    void flyingCarFactoryCreateCar() {
+    void flyingCarFactoryCreateCarTest() {
         flyingCarFactory.createCar(EmptyEngineParams.DEFAULT, 1);
         flyingCarFactory.createCar(EmptyEngineParams.DEFAULT, 2);
         flyingCarFactory.createCar(EmptyEngineParams.DEFAULT, 3);
@@ -63,7 +65,7 @@ class KpoApplicationTests {
 
     @Test
     @DisplayName("Customer storage : add customer")
-    void customerStorageAddCustomer() {
+    void customerStorageAddCustomerTest() {
         customerStorage.addCustomer(new Customer("Ivan1", 6, 4, 100));
         customerStorage.addCustomer(new Customer("", 4, 6, -1));
         customerStorage.addCustomer(new Customer("Petya", 6, 6, 52));
@@ -72,12 +74,12 @@ class KpoApplicationTests {
 
     @Test
     @DisplayName("Car service : add car")
-    void carServiceAddCar() {
+    void carServiceAddCarTest() {
         var handCarFactoryMock = Mockito.mock(HandCarFactory.class);
         Mockito.when(handCarFactoryMock.createCar(Mockito.any(EmptyEngineParams.class), Mockito.anyInt())).thenReturn(new Car(1, new HandEngine()));
         var pedalCarFactoryMock = Mockito.mock(PedalCarFactory.class);
         Mockito.when(pedalCarFactoryMock.createCar(Mockito.any(PedalEngineParams.class), Mockito.anyInt())).thenReturn(new Car(1, new PedalEngine(1)));
-        var flyingCarFactoryMock = Mockito.mock(FlyingCarFactory.class);
+        var flyingCarFactoryMock = Mockito.spy(FlyingCarFactory.class);
         Mockito.when(flyingCarFactoryMock.createCar(Mockito.any(EmptyEngineParams.class), Mockito.anyInt())).thenReturn(new Car(1, new FlyingEngine()));
         carService.addCar(handCarFactoryMock, EmptyEngineParams.DEFAULT);
         carService.addCar(pedalCarFactoryMock, new PedalEngineParams(6));
@@ -85,15 +87,16 @@ class KpoApplicationTests {
     }
 
     @Test
-    @DisplayName("Car service : take car")
-    void carServiceTakeCar() {
+    @DisplayName("Car service : take car when empty")
+    void carServiceTakeCarFromEmptyTest() {
         var car = carService.takeCar(new Customer("test", 0, 0, 0));
         Assert.isNull(car, "car should be null");
     }
 
     @Test
     @DisplayName("HSE car service : sell cars")
-    void hseCarServiceSellCars() {
+    void hseCarServiceSellCarsTest() {
         hseCarService.sellCars();
     }
+
 }
