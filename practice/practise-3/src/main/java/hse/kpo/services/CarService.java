@@ -4,13 +4,21 @@ import hse.kpo.domains.Car;
 import hse.kpo.domains.Customer;
 import hse.kpo.interfaces.ICarFactory;
 import hse.kpo.interfaces.ICarProvider;
+<<<<<<< HEAD
+=======
+import org.springframework.stereotype.Component;
+
+>>>>>>> 835741149bd926d3f9ec06fbe5a6c1b2f58babc7
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
 
+<<<<<<< HEAD
 /**
  * Service to provide cars.
  */
+=======
+>>>>>>> 835741149bd926d3f9ec06fbe5a6c1b2f58babc7
 @Component
 public class CarService implements ICarProvider {
 
