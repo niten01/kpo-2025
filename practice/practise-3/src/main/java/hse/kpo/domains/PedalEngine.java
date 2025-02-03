@@ -4,6 +4,9 @@ import hse.kpo.interfaces.IEngine;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * Domain class for pedal engine.
+ */
 @ToString
 @Getter
 public class PedalEngine implements IEngine {

@@ -12,7 +12,7 @@ import java.util.List;
  */
 @ToString
 public class CustomerStorage implements ICustomerProvider {
-    private List<Customer> customers = new ArrayList<>();
+    private final List<Customer> customers = new ArrayList<>();
 
     @Override
     public List<Customer> getCustomers() {

@@ -4,12 +4,12 @@ import hse.kpo.interfaces.IEngine;
 import lombok.ToString;
 
 /**
- * Domain class for hand engine.
+ * Domain class for flying engine.
  */
 @ToString
-public class HandEngine implements IEngine {
+public class FlyingEngine implements IEngine {
     @Override
     public boolean isCompatible(Customer customer) {
-        return customer.getHandPower() > 5;
+        return customer.getIq() > 300;
     }
 }

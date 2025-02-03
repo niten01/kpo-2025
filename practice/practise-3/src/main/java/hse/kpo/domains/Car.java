@@ -4,16 +4,19 @@ import hse.kpo.interfaces.IEngine;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * Domain class for car.
+ */
 @ToString
 public class Car {
 
-    private IEngine engine;
+    private final IEngine engine;
 
     @Getter
-    private int VIN;
+    private final int vin;
 
-    public Car(int VIN, IEngine engine) {
-        this.VIN = VIN;
+    public Car(int vin, IEngine engine) {
+        this.vin = vin;
         this.engine = engine;
     }
 
