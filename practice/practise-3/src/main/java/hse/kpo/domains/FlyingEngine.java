@@ -1,13 +1,13 @@
 package hse.kpo.domains;
 
-import hse.kpo.interfaces.IEngine;
+import hse.kpo.interfaces.Engine;
 import lombok.ToString;
 
 /**
  * Domain class for flying engine.
  */
 @ToString
-public class FlyingEngine implements IEngine {
+public class FlyingEngine implements Engine {
     @Override
     public boolean isCompatible(Customer customer) {
         return customer.getIq() > 300;

@@ -6,7 +6,7 @@ import hse.kpo.domains.Customer;
 /**
  * Engine interface.
  */
-public interface IEngine {
+public interface Engine {
 
     /**
      * Метод для проверки совместимости двигателя с покупателем.

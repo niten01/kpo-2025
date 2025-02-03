@@ -7,6 +7,6 @@ import hse.kpo.domains.Car;
  *
  * @param <ParamsT> type of engine params
  */
-public interface ICarFactory<ParamsT> {
+public interface CarFactory<ParamsT> {
     Car createCar(ParamsT carParams, int carNumber);
 }

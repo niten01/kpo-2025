@@ -1,6 +1,6 @@
 package hse.kpo.domains;
 
-import hse.kpo.interfaces.IEngine;
+import hse.kpo.interfaces.Engine;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -10,12 +10,12 @@ import lombok.ToString;
 @ToString
 public class Car {
 
-    private final IEngine engine;
+    private final Engine engine;
 
     @Getter
     private final int vin;
 
-    public Car(int vin, IEngine engine) {
+    public Car(int vin, Engine engine) {
         this.vin = vin;
         this.engine = engine;
     }

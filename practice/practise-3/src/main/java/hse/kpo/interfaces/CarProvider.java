@@ -6,6 +6,6 @@ import hse.kpo.domains.Customer;
 /**
  * Interface for car provider.
  */
-public interface ICarProvider {
+public interface CarProvider {
     Car takeCar(Customer customer); // Метод возвращает optional на Car, что означает, что метод может ничего не вернуть
 }

@@ -1,6 +1,6 @@
 package hse.kpo.domains;
 
-import hse.kpo.interfaces.IEngine;
+import hse.kpo.interfaces.Engine;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -9,7 +9,7 @@ import lombok.ToString;
  */
 @ToString
 @Getter
-public class PedalEngine implements IEngine {
+public class PedalEngine implements Engine {
     private final int size;
 
     @Override
