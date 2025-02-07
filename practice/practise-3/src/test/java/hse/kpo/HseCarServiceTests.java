@@ -9,8 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class HseCarServiceTests {
-
-
     @Autowired
     private HseCarService hseCarService;
 
