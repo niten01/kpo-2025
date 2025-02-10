@@ -21,13 +21,16 @@ public class Customer {
     @Setter
     private Car car;
 
+    @Setter
+    private Ship ship;
+
     /**
      * Customer constructor.
      *
-     * @param name customer name
-     * @param legPower customer leg power
+     * @param name      customer name
+     * @param legPower  customer leg power
      * @param handPower customer hand power
-     * @param iq customer iq
+     * @param iq        customer iq
      */
     public Customer(String name, int legPower, int handPower, int iq) {
         this.name = name;

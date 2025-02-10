@@ -1,7 +1,7 @@
 package hse.kpo.services;
 
-import hse.kpo.interfaces.CarProvider;
 import hse.kpo.interfaces.CustomerProvider;
+
 import java.util.Objects;
 
 import hse.kpo.interfaces.ShipProvider;
@@ -13,23 +13,23 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @RequiredArgsConstructor
-public class HseCarService {
+public class HseShipService {
 
-    private final CarProvider carProvider;
+    private final ShipProvider shipProvider;
 
     private final CustomerProvider customerProvider;
 
     /**
-     * Tries to distribute cars among customers.
+     * Tries to distribute ships among customers.
      */
-    public void sellCars() {
+    public void sellShip() {
         // получаем список покупателей
         var customers = customerProvider.getCustomers();
         // пробегаемся по полученному списку
         customers.stream().filter(customer -> Objects.isNull(customer.getCar())).forEach(customer -> {
-            var car = carProvider.takeCar(customer);
-            if (Objects.nonNull(car)) {
-                customer.setCar(car);
+            var ship = shipProvider.takeShip(customer);
+            if (Objects.nonNull(ship)) {
+                customer.setShip(ship);
             }
         });
     }
