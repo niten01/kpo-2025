@@ -1,19 +1,32 @@
 package hse.zoo.factories;
 
+import hse.zoo.domains.Animal;
 import hse.zoo.domains.Computer;
 import hse.zoo.domains.Table;
 import hse.zoo.domains.Thing;
+import hse.zoo.params.ThingParams;
+import org.springframework.stereotype.Component;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+
+@Component
 public class ThingFactory {
 
     private static int counter = 0;
+    private final Map<String, Class<? extends Thing>> thingTypes = Map.of("table", Table.class, "computer", Computer.class);
 
-    public static Thing createThing(String type) {
+    public Thing createThing(String type) {
         counter++;
-        return switch (type.toLowerCase()) {
-            case "table" -> new Table(counter);
-            case "computer" -> new Computer(counter);
-            default -> throw new IllegalArgumentException("Invalid thing type.");
-        };
+        Class<? extends Thing> thingClass = thingTypes.get(type.toLowerCase());
+        if (thingClass == null) {
+            throw new IllegalArgumentException("Invalid thing type.");
+        }
+
+        try {
+            return thingClass.getConstructor(ThingParams.class).newInstance(new ThingParams(counter));
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create thing instance", e);
+        }
     }
 }

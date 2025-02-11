@@ -1,6 +1,8 @@
 package hse.zoo.factories;
 
 import hse.zoo.domains.*;
+import hse.zoo.params.AnimalParams;
+import hse.zoo.params.HerboParams;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +20,9 @@ public class AnimalFactory {
 
         try {
             if (isHerbo(type)) {
-                return animalClass.getConstructor(int.class, int.class).newInstance(food, kindness);
+                return animalClass.getConstructor(HerboParams.class).newInstance(new HerboParams(food, kindness));
             } else {
-                return animalClass.getConstructor(int.class).newInstance(food);
+                return animalClass.getConstructor(AnimalParams.class).newInstance(new AnimalParams(food));
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to create animal instance", e);
@@ -28,6 +30,11 @@ public class AnimalFactory {
     }
 
     public boolean isHerbo(String type) {
-        return Herbo.class.isAssignableFrom(animalTypes.get(type.toLowerCase()));
+        Class<? extends Animal> animalClass = animalTypes.get(type.toLowerCase());
+        if (animalClass == null) {
+            throw new IllegalArgumentException("Invalid animal type.");
+        }
+
+        return Herbo.class.isAssignableFrom(animalClass);
     }
 }

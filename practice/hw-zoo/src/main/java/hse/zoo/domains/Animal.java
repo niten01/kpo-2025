@@ -1,14 +1,15 @@
 package hse.zoo.domains;
 
 import hse.zoo.interfaces.AliveInterface;
+import hse.zoo.params.AnimalParams;
 import lombok.ToString;
 
 @ToString
 public class Animal implements AliveInterface {
-    protected int food;
+    private final int food;
 
-    public Animal(int food) {
-        this.food = food;
+    public Animal(AnimalParams params) {
+        this.food = params.food();
     }
 
     @Override

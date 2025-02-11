@@ -1,10 +1,11 @@
 package hse.zoo.domains;
 
+import hse.zoo.params.ThingParams;
 import lombok.ToString;
 
-@ToString
+@ToString(callSuper = true)
 public class Computer extends Thing {
-    public Computer(int number) {
-        super(number);
+    public Computer(ThingParams params) {
+        super(params);
     }
 }
