@@ -21,6 +21,6 @@ public class Car {
     }
 
     public boolean isCompatible(Customer customer) {
-        return this.engine.isCompatible(customer); // внутри метода просто вызываем соответствующий метод двигателя
+        return this.engine.isCompatible(customer,ProductionTypes.CAR ); // внутри метода просто вызываем соответствующий метод двигателя
     }
 }

@@ -13,7 +13,7 @@ public class PedalEngine implements Engine {
     private final int size;
 
     @Override
-    public boolean isCompatible(Customer customer) {
+    public boolean isCompatible(Customer customer, ProductionTypes type) {
         return customer.getLegPower() > 5;
     }
 

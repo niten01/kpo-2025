@@ -2,6 +2,7 @@ package hse.kpo.interfaces;
 
 
 import hse.kpo.domains.Customer;
+import hse.kpo.domains.ProductionTypes;
 
 /**
  * Engine interface.
@@ -12,7 +13,8 @@ public interface Engine {
      * Метод для проверки совместимости двигателя с покупателем.
      *
      * @param customer - покупатель, с которым мы сравниваем двигатель
+     * @param type
      * @return true, если двигатель подходит покупателю
      */
-    boolean isCompatible(Customer customer);
+    boolean isCompatible(Customer customer, ProductionTypes type);
 }

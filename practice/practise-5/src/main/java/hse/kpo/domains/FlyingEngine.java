@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class FlyingEngine implements Engine {
     @Override
-    public boolean isCompatible(Customer customer) {
+    public boolean isCompatible(Customer customer, ProductionTypes type) {
         return customer.getIq() > 300;
     }
 }
