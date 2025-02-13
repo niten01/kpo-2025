@@ -1,10 +1,11 @@
 package hse.zoo.domains;
 
+import hse.zoo.params.HerboParams;
 import lombok.ToString;
 
-@ToString
+@ToString(callSuper = true)
 public class Rabbit extends Herbo {
-    public Rabbit(int food, int kindness) {
-        super(food, kindness);
+    public Rabbit(HerboParams params) {
+        super(params);
     }
 }

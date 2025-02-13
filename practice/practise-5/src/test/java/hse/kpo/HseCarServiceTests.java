@@ -1,5 +1,6 @@
-package hse.zoo;
+package hse.kpo;
 
+import hse.kpo.services.HseCarService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

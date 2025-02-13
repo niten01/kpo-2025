@@ -1,15 +1,17 @@
 package hse.zoo.domains;
 
+import hse.zoo.params.AnimalParams;
+import hse.zoo.params.HerboParams;
 import lombok.Getter;
 import lombok.ToString;
 
-@ToString
+@ToString(callSuper = true)
 @Getter
-public abstract class Herbo  extends Animal{
+public abstract class Herbo extends Animal {
     protected int kindness;
 
-    public Herbo(int food, int kindness) {
-        super(food);
-        this.kindness = kindness;
+    public Herbo(HerboParams params) {
+        super(new AnimalParams(params.food()));
+        this.kindness = params.kindness();
     }
 }

@@ -1,11 +1,12 @@
 package hse.zoo.domains;
 
+import hse.zoo.params.AnimalParams;
 import lombok.ToString;
 
-@ToString
+@ToString(callSuper = true)
 abstract class Predator extends Animal{
-    public Predator(int food) {
-        super(food);
+    public Predator(AnimalParams params) {
+        super(params);
     }
 }
 
