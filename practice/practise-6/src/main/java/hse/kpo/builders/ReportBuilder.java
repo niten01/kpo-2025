@@ -2,6 +2,8 @@ package hse.kpo.builders;
 
 import hse.kpo.domains.Customer;
 import hse.kpo.domains.Report;
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
 /**
  * Класс для составления отчета о работе системы.
  */
+@Slf4j
 public class ReportBuilder {
 
     /**
@@ -28,6 +31,7 @@ public class ReportBuilder {
         content.append("Покупатели:");
         customers.forEach(customer -> content.append(String.format(" - %s", customer)));
         content.append("\n");
+        log.info("Builder added customers");
 
         return this;
     }
@@ -41,6 +45,7 @@ public class ReportBuilder {
     public ReportBuilder addOperation(String operation) {
         content.append(String.format("Операция: %s", operation));
         content.append(System.lineSeparator());
+        log.info("Builder added operation");
         return this;
     }
 
