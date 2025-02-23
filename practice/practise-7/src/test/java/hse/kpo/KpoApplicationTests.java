@@ -3,10 +3,14 @@ package hse.kpo;
 import hse.kpo.domains.Customer;
 import hse.kpo.factories.cars.HandCarFactory;
 import hse.kpo.factories.cars.PedalCarFactory;
+import hse.kpo.factories.catamarans.HandCatamaranFactory;
+import hse.kpo.factories.catamarans.PedalCatamaranFactory;
 import hse.kpo.observers.SalesObserver;
 import hse.kpo.params.EmptyEngineParams;
 import hse.kpo.params.PedalEngineParams;
+import hse.kpo.services.HseCatamaranService;
 import hse.kpo.storages.CarStorage;
+import hse.kpo.storages.CatamaranStorage;
 import hse.kpo.storages.CustomerStorage;
 import hse.kpo.services.HseCarService;
 import org.junit.jupiter.api.Assertions;
@@ -22,16 +26,28 @@ class KpoApplicationTests {
 	private CarStorage carStorage;
 
 	@Autowired
+	private CatamaranStorage catamaranStorage;
+
+	@Autowired
 	private CustomerStorage customerStorage;
 
 	@Autowired
 	private HseCarService hseCarService;
 
 	@Autowired
+	private HseCatamaranService hseCatamaranService;
+
+	@Autowired
 	private PedalCarFactory pedalCarFactory;
 
 	@Autowired
 	private HandCarFactory handCarFactory;
+
+	@Autowired
+	private PedalCatamaranFactory pedalCatamaranFactory;
+
+	@Autowired
+	private HandCatamaranFactory handCatamaranFactory;
 
 	@Autowired
 	private SalesObserver salesObserver;
@@ -45,7 +61,7 @@ class KpoApplicationTests {
 	}
 
 	@Test
-	@DisplayName("Тест загрузки контекста")
+	@DisplayName("Тест HseCarService")
 	void hseCarServiceTest() {
 		hseCarService.addObserver(salesObserver);
 		customerStorage.addCustomer(Customer.builder().name("Ivan1").legPower(6).handPower(4).build());
@@ -62,6 +78,29 @@ class KpoApplicationTests {
 		customerStorage.getCustomers().stream().map(Customer::toString).forEach(System.out::println);
 
 		hseCarService.sellCars();
+
+		customerStorage.getCustomers().stream().map(Customer::toString).forEach(System.out::println);
+		System.out.println(salesObserver.buildReport());
+	}
+
+	@Test
+	@DisplayName("Тест HseCatamaranService")
+	void hseCatamaranServiceTest() {
+		hseCatamaranService.addObserver(salesObserver);
+		customerStorage.addCustomer(Customer.builder().name("Ivan1").legPower(6).handPower(4).build());
+		customerStorage.addCustomer(Customer.builder().name("Maksim").legPower(4).handPower(6).build());
+		customerStorage.addCustomer(Customer.builder().name("Petya").legPower(6).handPower(6).build());
+		customerStorage.addCustomer(Customer.builder().name("Nikita").legPower(4).handPower(4).build());
+
+		catamaranStorage.addCatamaran(pedalCatamaranFactory, new PedalEngineParams(6));
+		catamaranStorage.addCatamaran(pedalCatamaranFactory, new PedalEngineParams(6));
+
+		catamaranStorage.addCatamaran(handCatamaranFactory, EmptyEngineParams.DEFAULT);
+		catamaranStorage.addCatamaran(handCatamaranFactory, EmptyEngineParams.DEFAULT);
+
+		customerStorage.getCustomers().stream().map(Customer::toString).forEach(System.out::println);
+
+		hseCatamaranService.sellCatamarans();
 
 		customerStorage.getCustomers().stream().map(Customer::toString).forEach(System.out::println);
 		System.out.println(salesObserver.buildReport());
