@@ -4,6 +4,7 @@ import hse.kpo.builders.ReportBuilder;
 import hse.kpo.domains.Customer;
 import hse.kpo.factories.cars.HandCarFactory;
 import hse.kpo.factories.cars.PedalCarFactory;
+import hse.kpo.observers.ReportSalesObserver;
 import hse.kpo.params.EmptyEngineParams;
 import hse.kpo.params.PedalEngineParams;
 import hse.kpo.storages.CarStorage;
@@ -33,6 +34,9 @@ class KpoApplicationTests {
 	@Autowired
 	private HandCarFactory handCarFactory;
 
+	@Autowired
+	private ReportSalesObserver reportSalesObserver;
+
 	@Test
 	@DisplayName("Тест загрузки контекста")
 	void contextLoads() {
@@ -48,6 +52,7 @@ class KpoApplicationTests {
 		customerStorage.addCustomer(Customer.builder().name("Maksim").legPower(4).handPower(6).build());
 		customerStorage.addCustomer(Customer.builder().name("Petya").legPower(6).handPower(6).build());
 		customerStorage.addCustomer(Customer.builder().name("Nikita").legPower(4).handPower(4).build());
+		hseCarService.addObserver(reportSalesObserver);
 
 		carStorage.addCar(pedalCarFactory, new PedalEngineParams(6));
 		carStorage.addCar(pedalCarFactory, new PedalEngineParams(6));
@@ -57,20 +62,21 @@ class KpoApplicationTests {
 
 		customerStorage.getCustomers().stream().map(Customer::toString).forEach(System.out::println);
 
-		var reportBuilder = new ReportBuilder()
-				.addOperation("Инициализация системы")
-				.addCustomers(customerStorage.getCustomers());
+//		var reportBuilder = new ReportBuilder()
+//				.addOperation("Инициализация системы")
+//				.addCustomers(customerStorage.getCustomers());
 
 		hseCarService.sellCars();
 
-		customerStorage.getCustomers().stream().map(Customer::toString).forEach(System.out::println);
-		var report = reportBuilder
-				.addOperation("Продажа автомобилей")
-				.addCustomers(customerStorage.getCustomers())
-				.build();
-
-		System.out.println();
-		System.out.println(report.toString());
+//		customerStorage.getCustomers().stream().map(Customer::toString).forEach(System.out::println);
+//		var report = reportBuilder
+//				.addOperation("Продажа автомобилей")
+//				.addCustomers(customerStorage.getCustomers())
+//				.build();
+//
+//		System.out.println();
+//		System.out.println(report.toString());
+		System.out.println(reportSalesObserver.buildReport());
 	}
 
 }
