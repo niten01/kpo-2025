@@ -6,6 +6,7 @@ import hse.kpo.enums.ProductionTypes;
 
 public interface SalesObserver {
     void onSale(Customer customer, ProductionTypes productType, int vin);
+    void addThing(ProductionTypes type);
 
     void checkCustomers();
 

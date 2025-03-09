@@ -32,4 +32,9 @@ public class ReportSalesObserver implements SalesObserver {
         );
         reportBuilder.addOperation(message);
     }
+
+    @Override
+    public void addThing(ProductionTypes type) {
+        reportBuilder.addOperation(type.toString());
+    }
 }
