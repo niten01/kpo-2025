@@ -12,7 +12,6 @@ public class CatamaranWithWheels extends Car {
 
     @Override
     public boolean isCompatible(Customer customer) {
-        // Используем проверку совместимости для автомобилей
         return this.catamaran.getEngine().isCompatible(customer, ProductionTypes.CATAMARAN);
     }
 

@@ -16,6 +16,7 @@ import hse.kpo.observers.SalesObserver;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
 import java.util.Random;
 
 /**
@@ -47,20 +48,14 @@ public class Hse {
     /**
      * Добавляет нового клиента в систему.
      *
-     * @param name имя клиента
-     * @param legPower сила ног (1-10)
+     * @param name      имя клиента
+     * @param legPower  сила ног (1-10)
      * @param handPower сила рук (1-10)
-     * @param iq уровень интеллекта (1-200)
-     * @example
-     * hse.addCustomer("Анна", 7, 5, 120);
+     * @param iq        уровень интеллекта (1-200)
+     * @example hse.addCustomer(" Анна ", 7, 5, 120);
      */
     public void addCustomer(String name, int legPower, int handPower, int iq) {
-        Customer customer = Customer.builder()
-                .name(name)
-                .legPower(legPower)
-                .handPower(handPower)
-                .iq(iq)
-                .build();
+        Customer customer = Customer.builder().name(name).legPower(legPower).handPower(handPower).iq(iq).build();
         customerStorage.addCustomer(customer);
     }
 
@@ -138,8 +133,7 @@ public class Hse {
      * Генерирует отчет о продажах.
      *
      * @return форматированная строка с отчетом
-     * @example
-     * System.out.println(hse.generateReport());
+     * @example System.out.println(hse.generateReport ());
      */
     public String generateReport() {
         return salesObserver.buildReport().toString();
