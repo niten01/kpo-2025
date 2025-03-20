@@ -1,14 +1,21 @@
 package hse.bank.interfaces;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Interface for storing domain objects
+ * @param <T> object type
+ */
 public interface Provider<T> {
-    Optional<T> get(UUID id);
+    List<T> getAll();
 
-    void add(T t);
+    Optional<T> get(int id);
+
+    T add(T t);
 
     void save(T t);
 
-    void delete(UUID id);
+    void delete(int id);
 }

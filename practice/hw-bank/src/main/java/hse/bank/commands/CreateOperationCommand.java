@@ -12,17 +12,19 @@ import lombok.RequiredArgsConstructor;
 
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
-public class CreateCategoryCommand implements Command<Void> {
-    private final CategoryFacade categories;
-    private final String name;
+public class CreateOperationCommand implements Command<Void> {
+    private final OperationFacade operations;
+    private final int accountId;
+    private final int categoryId;
     private final OperationType type;
+    private final double amount;
+    private final String description;
 
     @Override
     public Void execute() {
-        categories.addCategory(name, type);
+        operations.addOperation(accountId, categoryId, type, amount, description);
         return null;
     }
 }

@@ -4,20 +4,31 @@ import hse.bank.domains.BankAccount;
 import hse.bank.domains.Category;
 import hse.bank.domains.Operation;
 import hse.bank.interfaces.Provider;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+/**
+ * In-memory storage of bank accounts
+ */
+@Component
 public class InMemoryAccountProvider implements Provider<BankAccount> {
-    private final Map<UUID, BankAccount> accounts = new HashMap<>();
+    private final Map<Integer, BankAccount> accounts = new HashMap<>();
 
     @Override
-    public Optional<BankAccount> get(UUID id) {
+    public List<BankAccount> getAll() {
+        return accounts.values().stream().toList();
+    }
+
+    @Override
+    public Optional<BankAccount> get(int id) {
         return Optional.ofNullable(accounts.get(id));
     }
 
     @Override
-    public void add(BankAccount account) {
+    public BankAccount add(BankAccount account) {
         accounts.put(account.getId(), account);
+        return account;
     }
 
     @Override
@@ -29,7 +40,7 @@ public class InMemoryAccountProvider implements Provider<BankAccount> {
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(int id) {
         accounts.remove(id);
     }
 }

@@ -1,5 +1,6 @@
-package hse.zoo;
+package hse.bank;
 
+import hse.bank.services.CliMenuService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,8 +21,8 @@ public class CliServiceTest {
     @Test
     @DisplayName("Test cli menu service start")
     void cliMenuServiceStartTest() {
-        InputStream fakeIn = new ByteArrayInputStream("list\n\rq\n\r".getBytes());
-        System.setIn(fakeIn);
+        InputStream fakeIn = new ByteArrayInputStream("create account a\n\rlist account\n\rquit\n\r".getBytes());
+        cliMenuService.setStream(fakeIn);
 
         Assertions.assertDoesNotThrow(() -> cliMenuService.start());
     }
