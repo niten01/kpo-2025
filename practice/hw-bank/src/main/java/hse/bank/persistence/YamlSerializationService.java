@@ -17,7 +17,7 @@ public abstract class YamlSerializationService<T> extends AbstractSerializationS
 
     @Override
     protected String serializeItem(T item) {
-        return yaml.dump(item);
+        return yaml.dump(createMap(item));
     }
 
     @Override
@@ -27,5 +27,7 @@ public abstract class YamlSerializationService<T> extends AbstractSerializationS
     }
 
     protected abstract T createFromMap(Map<String, Object> data);
+
+    protected abstract Map<String, Object> createMap(T item);
 }
 

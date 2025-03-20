@@ -11,6 +11,7 @@ import hse.bank.interfaces.Command;
 import lombok.RequiredArgsConstructor;
 
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class CreateOperationCommand implements Command<Void> {
 
     @Override
     public Void execute() {
-        operations.addOperation(accountId, categoryId, type, amount, description);
+        operations.addOperation(accountId, categoryId, type, amount, new Date(), description);
         return null;
     }
 }

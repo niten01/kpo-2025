@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,17 +42,17 @@ public class OperationFacade {
         return operation.get();
     }
 
-    public Operation addOperation(Integer id, int accountId, int categoryId, OperationType type, double amount, String description) {
+    public Operation addOperation(Integer id, int accountId, int categoryId, OperationType type, double amount, Date date, String description) {
         BankAccount account = accountFacade.getAccount(accountId);
         Category category = categoryFacade.getCategory(categoryId);
-        Operation operation = FinanceFactory.createOperation(id, account, category, type, amount, description);
+        Operation operation = FinanceFactory.createOperation(id, account, category, type, amount, date, description);
         account.updateBalance(operation.getSignedAmount());
         accountFacade.saveAccount(account);
         return operationsProvider.add(operation);
     }
 
-    public Operation addOperation(int accountId, int categoryId, OperationType type, double amount, String description) {
-        return addOperation(defaultIDCounter++, accountId, categoryId, type, amount, description);
+    public Operation addOperation(int accountId, int categoryId, OperationType type, double amount, Date date, String description) {
+        return addOperation(defaultIDCounter++, accountId, categoryId, type, amount, date, description);
     }
 
     public void saveOperation(Operation operation) {

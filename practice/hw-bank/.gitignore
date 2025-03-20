@@ -12,6 +12,9 @@ bin
 **/logs/
 
 .test
+accounts.yml
+categories.yml
+operations.yml
 
 # Ignore Gradle project-specific cache directory
 .gradle

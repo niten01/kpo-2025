@@ -26,10 +26,10 @@ class FactoriesTests {
         var acc1 = FinanceFactory.createBankAccount(1, "account");
         var catI = FinanceFactory.createCategory(1, "categoryincome", OperationType.INCOME);
         var catE = FinanceFactory.createCategory(1, "categoryexpense", OperationType.EXPENSE);
-        Assertions.assertDoesNotThrow(() -> FinanceFactory.createOperation(1, acc1, catI, OperationType.INCOME, 100, "description"));
+        Assertions.assertDoesNotThrow(() -> FinanceFactory.createOperation(1, acc1, catI, OperationType.INCOME, 100, new Date(1), "description"));
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> FinanceFactory.createOperation(1, acc1, catE, OperationType.INCOME, 100, "description"));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> FinanceFactory.createOperation(1, acc1, catI, OperationType.EXPENSE, 100, "description"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> FinanceFactory.createOperation(1, acc1, catE, OperationType.INCOME, 100, new Date(1), "description"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> FinanceFactory.createOperation(1, acc1, catI, OperationType.EXPENSE, 100, new Date(1), "description"));
         Assertions.assertThrows(IllegalArgumentException.class, () -> FinanceFactory.createBankAccount(1, ""));
         Assertions.assertThrows(IllegalArgumentException.class, () -> FinanceFactory.createBankAccount(1, null));
         Assertions.assertThrows(IllegalArgumentException.class, () -> FinanceFactory.createCategory(1, "", OperationType.EXPENSE));

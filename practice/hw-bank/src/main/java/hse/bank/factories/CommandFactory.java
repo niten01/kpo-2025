@@ -7,6 +7,9 @@ import hse.bank.facades.AnalyticsFacade;
 import hse.bank.facades.CategoryFacade;
 import hse.bank.facades.OperationFacade;
 import hse.bank.interfaces.Command;
+import hse.bank.persistence.BankAccountYAMLSerializationService;
+import hse.bank.persistence.CategoryYAMLSerializationService;
+import hse.bank.persistence.OperationYAMLSerializationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +26,9 @@ public class CommandFactory {
     private final AccountFacade accounts;
     private final CategoryFacade categories;
     private final OperationFacade operations;
+    private final BankAccountYAMLSerializationService bankAccountYAMLSerializationService;
+    private final CategoryYAMLSerializationService categoryYAMLSerializationService;
+    private final OperationYAMLSerializationService operationYAMLSerializationService;
 
     public AnalyticsCommand createAnalyticsCommand(Date startDate, Date endDate) {
         return new AnalyticsCommand(analytics, startDate, endDate);
@@ -46,6 +52,14 @@ public class CommandFactory {
 
     public CreateOperationCommand createCreateOperationCommand(int accountId, int categoryId, OperationType type, double amount, String description) {
         return new CreateOperationCommand(operations, accountId, categoryId, type, amount, description);
+    }
+
+    public ExportCommand createExportCommand() {
+        return new ExportCommand(accounts, categories, operations, bankAccountYAMLSerializationService, categoryYAMLSerializationService, operationYAMLSerializationService);
+    }
+
+    public ImportCommand createImportCommand() {
+        return new ImportCommand(bankAccountYAMLSerializationService, categoryYAMLSerializationService, operationYAMLSerializationService);
     }
 
     public <T> TimedCommandDecorator<T> makeTimed(Command<T> command) {

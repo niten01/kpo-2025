@@ -4,10 +4,11 @@ import hse.bank.domains.Category;
 import hse.bank.domains.OperationType;
 import hse.bank.facades.CategoryFacade;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
 @RequiredArgsConstructor
-public class CategoryCSVSerializationService extends AbstractSerializationService<Category> {
-    private final String delimiter;
+public class CategoryCSVSerializationService extends CsvSerializerService<Category> {
     private final CategoryFacade categoryFacade;
 
     @Override

@@ -30,6 +30,9 @@ public abstract class AbstractSerializationService<T> {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
+                if(line.isEmpty()) {
+                    continue;
+                }
                 items.add(deserializeItem(line));
             }
         }

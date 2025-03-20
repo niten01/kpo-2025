@@ -74,10 +74,13 @@ public class CliMenuService {
             command = commandFactory.createSetBalanceCommand(Integer.parseInt(parts.get(0)), Double.parseDouble(parts.get(1)));
         } else if (commandName.equals("fix_balance")) {
             command = commandFactory.createFixBalanceCommand();
+        } else if (commandName.equals("import")) {
+            command = commandFactory.createImportCommand();
         } else if (commandName.equals("help")) {
             printHelp();
         } else if (commandName.equals("quit")) {
             isAlive = false;
+            command = commandFactory.createExportCommand();
         }
 
         if (command != null) {
@@ -98,8 +101,9 @@ public class CliMenuService {
         System.out.println("- analytics");
         System.out.println("- set_balance <accId> <amount>");
         System.out.println("- fix_balance");
+        System.out.println("- import");
         System.out.println("- help");
-        System.out.println("- exit");
+        System.out.println("- quit - export and exit");
         System.out.println("Suffix any command with 'timed' to measure execution time");
     }
 }

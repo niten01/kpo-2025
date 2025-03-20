@@ -3,10 +3,12 @@ package hse.bank.persistence;
 import hse.bank.domains.BankAccount;
 import hse.bank.facades.AccountFacade;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
 
+@Component
 @RequiredArgsConstructor
-public class BankAccountCSVSerializationService extends AbstractSerializationService<BankAccount> {
-    private final String delimiter;
+public class BankAccountCSVSerializationService extends CsvSerializerService<BankAccount> {
     private final AccountFacade accountFacade;
 
     @Override

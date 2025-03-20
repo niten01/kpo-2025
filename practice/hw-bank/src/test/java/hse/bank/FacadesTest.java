@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
+import java.util.Date;
+
 @SpringBootTest
 class FacadesTest {
     @Autowired
@@ -36,7 +38,7 @@ class FacadesTest {
 
         categoryFacade.addCategory("a", OperationType.INCOME);
         var cat = categoryFacade.getAllCategories().getFirst();
-        operationFacade.addOperation(acc.getId(), cat.getId(), OperationType.INCOME, 1, "");
+        operationFacade.addOperation(acc.getId(), cat.getId(), OperationType.INCOME, 1, new Date(), "");
 
         accountFacade.fixBalances();
         Assertions.assertEquals(1, accountFacade.getAccount(accId).getBalance());
