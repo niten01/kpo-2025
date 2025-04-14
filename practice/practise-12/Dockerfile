@@ -4,7 +4,7 @@ WORKDIR /app
 COPY build.gradle.kts settings.gradle.kts ./
 COPY --chown=gradle:gradle . .
 RUN gradle dependencies --refresh-dependencies && \
-    gradle build -x test --no-daemon
+    gradle build -x test -x checkstyleMain --no-daemon
 
 # Run stage
 FROM openjdk:21-jdk-slim

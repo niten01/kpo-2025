@@ -7,7 +7,7 @@ import hse.kpo.facade.Hse;
 import hse.kpo.factories.cars.HandCarFactory;
 import hse.kpo.factories.cars.PedalCarFactory;
 import hse.kpo.observers.SalesObserver;
-import hse.kpo.storages.CustomerStorage;
+import hse.kpo.services.customers.CustomerService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -28,7 +28,7 @@ class HseTest {
     private Hse hse;
 
     @Autowired
-    private CustomerStorage customerStorage;
+    private CustomerService customerService;
 
     @Autowired
     private PedalCarFactory pedalCarFactory;
@@ -50,11 +50,11 @@ class HseTest {
         hse.sell();
 
         // Assert
-        Customer customer = customerStorage.getCustomers().get(0);
-        Car receivedCar = customer.getCar();
+        Customer customer = customerService.getCustomers().get(0);
+        var receivedCars = customer.getCars();
 
         assertAll(
-                () -> assertNotNull(receivedCar, "Автомобиль не был назначен")
+                () -> assertFalse(receivedCars.isEmpty(), "Автомобиль не был назначен")
         );
     }
 
@@ -69,10 +69,10 @@ class HseTest {
         hse.sell();
 
         // Assert
-        Customer customer = customerStorage.getCustomers().get(0);
+        Customer customer = customerService.getCustomers().get(0);
 
         assertAll(
-                () -> assertNull(customer.getCar(),
+                () -> assertTrue(customer.getCars().isEmpty(),
                         "Клиент не должен был получить автомобиль. Проверьте совместимость двигателя")
         );
     }
@@ -90,14 +90,14 @@ class HseTest {
         hse.sell();
 
         // Assert
-        List<Customer> customers = customerStorage.getCustomers();
+        List<Customer> customers = customerService.getCustomers();
         assertAll(
-                () -> assertNotNull(customers.get(0).getCar(),
+                () -> assertFalse(customers.get(0).getCars().isEmpty(),
                         "Первый клиент должен получить автомобиль"),
-                () -> assertNotNull(customers.get(1).getCar(),
+                () -> assertFalse(customers.get(1).getCars().isEmpty(),
                         "Второй клиент должен получить автомобиль"),
-                () -> assertNotEquals(customers.get(0).getCar().getVin(),
-                        customers.get(1).getCar().getVin(),
+                () -> assertNotEquals(customers.get(0).getCars().getFirst().getVin(),
+                        customers.get(1).getCars().getFirst().getVin(),
                         "VIN автомобилей должны отличаться")
         );
     }
@@ -118,7 +118,7 @@ class HseTest {
 
         // Assert
         assertAll(() -> assertTrue(report.contains("TestClient"),
-                "В отчете должно быть имя клиента"),
+                        "В отчете должно быть имя клиента"),
                 () -> assertTrue(report.contains(ProductionTypes.CAR.toString()),
                         "В отчете должен быть указан тип продукции 'CAR'"),
                 () -> assertTrue(report.matches("(?s).*VIN-\\d+.*"),
