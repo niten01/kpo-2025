@@ -15,9 +15,10 @@ import hse.kpo.interfaces.Transport;
 import hse.kpo.params.EmptyEngineParams;
 import hse.kpo.params.PedalEngineParams;
 import hse.kpo.export.reports.ReportExporter;
+import hse.kpo.repositories.CustomerRepository;
 import hse.kpo.services.cars.HseCarService;
 import hse.kpo.services.catamarans.HseCatamaranService;
-import hse.kpo.storages.CustomerStorage;
+import hse.kpo.services.customers.CustomerService;
 import hse.kpo.observers.SalesObserver;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ import java.util.stream.Stream;
 @Component
 @RequiredArgsConstructor
 public class Hse {
-    private final CustomerStorage customerStorage;
+    private final CustomerService customerService;
     private final HseCarService carService;
     private final HseCatamaranService catamaranService;
     private final SalesObserver salesObserver;
@@ -57,29 +58,23 @@ public class Hse {
     /**
      * Добавляет нового клиента в систему.
      *
-     * @param name имя клиента
-     * @param legPower сила ног (1-10)
+     * @param name      имя клиента
+     * @param legPower  сила ног (1-10)
      * @param handPower сила рук (1-10)
-     * @param iq уровень интеллекта (1-200)
-     * @example
-     * hse.addCustomer("Анна", 7, 5, 120);
+     * @param iq        уровень интеллекта (1-200)
+     * @example hse.addCustomer(" Анна ", 7, 5, 120);
      */
     public void addCustomer(String name, int legPower, int handPower, int iq) {
-        Customer customer = Customer.builder()
-                .name(name)
-                .legPower(legPower)
-                .handPower(handPower)
-                .iq(iq)
-                .build();
-        customerStorage.addCustomer(customer);
+        var customer = new Customer(name, legPower, handPower, iq);
+        customerService.addCustomer(customer);
     }
 
     public boolean updateCustomer(Customer updatedCustomer) {
-        return customerStorage.updateCustomer(updatedCustomer);
+        return customerService.updateCustomer(updatedCustomer);
     }
 
     public boolean deleteCustomer(String name) {
-        return customerStorage.deleteCustomer(name);
+        return customerService.deleteCustomer(name);
     }
 
     /**
@@ -164,10 +159,7 @@ public class Hse {
     }
 
     public void exportTransport(ReportFormat format, Writer writer) {
-        List<Transport> transports = Stream.concat(
-                carService.getCars().stream(),
-                catamaranService.getCatamarans().stream())
-                .toList();
+        List<Transport> transports = Stream.concat(carService.getCars().stream(), catamaranService.getCatamarans().stream()).toList();
         TransportExporter exporter = transportExporterFactory.create(format);
 
         try {
@@ -181,8 +173,7 @@ public class Hse {
      * Генерирует отчет о продажах.
      *
      * @return форматированная строка с отчетом
-     * @example
-     * System.out.println(hse.generateReport());
+     * @example System.out.println(hse.generateReport ());
      */
     public String generateReport() {
         return salesObserver.buildReport().toString();
