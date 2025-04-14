@@ -58,6 +58,6 @@ public class CustomerController {
     }
 
     private CustomerResponse convertToResponse(Customer customer) {
-        return new CustomerResponse(customer.getName(), customer.getLegPower(), customer.getHandPower(), customer.getIq(), customer.getCars().isEmpty() ? null : customer.getCars().stream().map(Car::getVin).toList(), customer.getCatamaran() != null ? customer.getCatamaran().getVin() : null);
+        return new CustomerResponse(customer.getName(), customer.getLegPower(), customer.getHandPower(), customer.getIq(), customer.getCars() == null || customer.getCars().isEmpty() ? null : customer.getCars().stream().map(Car::getVin).toList(), customer.getCatamaran() != null ? customer.getCatamaran().getVin() : null);
     }
 }
