@@ -1,6 +1,6 @@
 package hse.zoo.services;
 
-import hse.zoo.domains.Animal;
+import hse.zoo.domain.Animal;
 import org.springframework.stereotype.Component;
 
 /**

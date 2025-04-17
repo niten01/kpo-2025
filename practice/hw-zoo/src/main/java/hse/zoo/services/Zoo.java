@@ -1,7 +1,7 @@
 package hse.zoo.services;
 
-import hse.zoo.domains.Animal;
-import hse.zoo.domains.Thing;
+import hse.zoo.domain.Animal;
+import hse.zoo.domain.Thing;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

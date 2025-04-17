@@ -1,6 +1,6 @@
 package hse.zoo.factories;
 
-import hse.zoo.domains.*;
+import hse.zoo.domain.*;
 import hse.zoo.params.AnimalParams;
 import hse.zoo.params.HerboParams;
 import lombok.Getter;

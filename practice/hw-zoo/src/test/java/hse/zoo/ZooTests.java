@@ -1,9 +1,9 @@
 package hse.zoo;
 
-import hse.zoo.domains.Computer;
-import hse.zoo.domains.Monkey;
-import hse.zoo.domains.Table;
-import hse.zoo.domains.Wolf;
+import hse.zoo.domain.Computer;
+import hse.zoo.domain.Monkey;
+import hse.zoo.domain.Table;
+import hse.zoo.domain.Wolf;
 import hse.zoo.interfaces.AliveInterface;
 import hse.zoo.services.Zoo;
 import org.junit.jupiter.api.Assertions;

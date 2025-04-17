@@ -1,9 +1,9 @@
 package hse.zoo.factories;
 
-import hse.zoo.domains.Animal;
-import hse.zoo.domains.Computer;
-import hse.zoo.domains.Table;
-import hse.zoo.domains.Thing;
+import hse.zoo.domain.Animal;
+import hse.zoo.domain.Computer;
+import hse.zoo.domain.Table;
+import hse.zoo.domain.Thing;
 import hse.zoo.params.ThingParams;
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,6 @@
 package hse.zoo;
 
-import hse.zoo.domains.*;
+import hse.zoo.domain.*;
 import hse.zoo.factories.AnimalFactory;
 import hse.zoo.factories.ThingFactory;
 import org.junit.jupiter.api.Assertions;
