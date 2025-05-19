@@ -1,6 +1,6 @@
 package hse.zoo.services;
 
-import hse.zoo.domains.Herbo;
+import hse.zoo.domain.Herbo;
 import hse.zoo.factories.AnimalFactory;
 import hse.zoo.factories.ThingFactory;
 import hse.zoo.interfaces.AliveInterface;

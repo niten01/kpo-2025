@@ -1,4 +1,4 @@
-package hse.zoo.domains;
+package hse.zoo.domain;
 
 import hse.zoo.interfaces.AliveInterface;
 import hse.zoo.params.AnimalParams;

@@ -1,7 +1,7 @@
 package hse.zoo;
 
-import hse.zoo.domains.Animal;
-import hse.zoo.domains.Herbo;
+import hse.zoo.domain.Animal;
+import hse.zoo.domain.Herbo;
 import hse.zoo.factories.AnimalFactory;
 import hse.zoo.services.CliMenuService;
 import hse.zoo.services.Zoo;
