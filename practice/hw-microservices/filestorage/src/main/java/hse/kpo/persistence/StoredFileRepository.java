@@ -1,4 +1,4 @@
-package hse.kpo.repositories;
+package hse.kpo.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

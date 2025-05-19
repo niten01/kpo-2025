@@ -1,6 +1,6 @@
 package hse.kpo.controllers;
 
-import hse.kpo.repositories.StoredFileEntity;
+import hse.kpo.persistence.StoredFileEntity;
 import hse.kpo.services.FileStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.FileSystemResource;

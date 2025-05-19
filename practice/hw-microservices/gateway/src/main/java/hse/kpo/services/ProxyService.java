@@ -40,7 +40,7 @@ class MultipartInputStreamFileResource extends InputStreamResource {
 @Service
 public class ProxyService {
 
-    @Value("${remote.storage-service.base-url}")
+    @Value("${remote.filestorage-service.base-url}")
     private String storageServiceBaseUrl;
     @Value("${remote.analysis-service.base-url}")
     private String analysisServiceBaseUrl;
@@ -60,16 +60,24 @@ public class ProxyService {
         return restTemplate.postForEntity(url, requestEntity, Long.class);
     }
 
-    public ResponseEntity<String> forwardAnalyze(String id) {
-        String url = analysisServiceBaseUrl + "/files/" + id + "/analyze";
-        return restTemplate.postForEntity(url, null, String.class);
+    public ResponseEntity<String> forwardAnalyze(Long id) {
+        String url = analysisServiceBaseUrl + "/api/analysis/" + id ;
+        return restTemplate.getForEntity(url, String.class);
     }
 
-    public ResponseEntity<Resource> forwardGetFile(String id) {
+    public ResponseEntity<Resource> forwardGetFile(Long id) {
         String url = storageServiceBaseUrl + "/api/storage/" + id;
         ResponseEntity<byte[]> response = restTemplate.getForEntity(url, byte[].class);
         Resource resource = new ByteArrayResource(response.getBody());
 
         return ResponseEntity.status(response.getStatusCode()).headers(response.getHeaders()).contentType(MediaType.TEXT_PLAIN).body(resource);
+    }
+
+    public ResponseEntity<Resource> forwardGetWordcloud(Long id) {
+        String url = analysisServiceBaseUrl + "/api/analysis/wordcloud/" + id;
+        ResponseEntity<byte[]> response = restTemplate.getForEntity(url, byte[].class);
+        Resource resource = new ByteArrayResource(response.getBody());
+
+        return ResponseEntity.status(response.getStatusCode()).headers(response.getHeaders()).contentType(MediaType.IMAGE_PNG).body(resource);
     }
 }

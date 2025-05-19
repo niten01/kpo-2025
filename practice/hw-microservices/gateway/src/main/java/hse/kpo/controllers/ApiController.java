@@ -21,20 +21,26 @@ public class ApiController {
     private ProxyService proxyService;
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @Operation(summary = "Upload a file", description = "Accepts a file and forwards it to the remote service")
+    @Operation(summary = "Upload a file", description = "Accepts a file and forwards it to the remote service, returns uploaded file ID")
     public ResponseEntity<Long> upload(@RequestParam("file") MultipartFile file) throws IOException {
         return proxyService.forwardFileUpload(file);
     }
 
     @PostMapping("/{id}/analyze")
     @Operation(summary = "Analyze a file", description = "Forwards an analysis request for the file with given ID")
-    public ResponseEntity<String> analyze(@PathVariable String id) {
+    public ResponseEntity<String> analyze(@PathVariable Long id) {
         return proxyService.forwardAnalyze(id);
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Get file", description = "Fetch a file or its metadata by ID")
-    public ResponseEntity<Resource> getFile(@PathVariable String id) {
+    @Operation(summary = "Get file", description = "Fetch a file by ID")
+    public ResponseEntity<Resource> getFile(@PathVariable Long id) {
         return proxyService.forwardGetFile(id);
+    }
+
+    @GetMapping("/wordcloud/{id}")
+    @Operation(summary = "Get wordcloud image", description = "Get wordcloud of a previously analyzed file")
+    public ResponseEntity<Resource> getWordcloud(@PathVariable Long id) {
+        return proxyService.forwardGetWordcloud(id);
     }
 }

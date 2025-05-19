@@ -1,4 +1,4 @@
-package hse.kpo.repositories;
+package hse.kpo.persistence;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

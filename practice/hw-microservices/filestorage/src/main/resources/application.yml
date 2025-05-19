@@ -6,7 +6,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
 
 storage:
   base-path: ${STORAGE_BASE_PATH:/tmp/files}

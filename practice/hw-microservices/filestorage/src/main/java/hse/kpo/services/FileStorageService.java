@@ -1,7 +1,7 @@
 package hse.kpo.services;
 
-import hse.kpo.repositories.StoredFileEntity;
-import hse.kpo.repositories.StoredFileRepository;
+import hse.kpo.persistence.StoredFileEntity;
+import hse.kpo.persistence.StoredFileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 @Service
 @RequiredArgsConstructor
@@ -37,9 +36,9 @@ public class FileStorageService {
         return repository.save(entity);
     }
 
-    public File retrieve(Long id) throws Exception {
+    public File retrieve(Long id)  {
         StoredFileEntity file = repository.findById(id)
-                .orElseThrow(() -> new Exception("File not found"));
+                .orElseThrow(() -> new IllegalArgumentException("File not found"));
         return new File(file.getLocation());
     }
 }
