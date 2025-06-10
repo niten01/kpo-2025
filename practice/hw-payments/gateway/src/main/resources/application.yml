@@ -1,0 +1,8 @@
+server:
+  port: 8080
+
+remote:
+  payments-service:
+    base-url: ${PAYMENTS_SERVICE_BASE_URL:http://localhost:8081}
+  orders-service:
+    base-url: ${ORDERS_SERVICE_BASE_URL:http://localhost:8082}

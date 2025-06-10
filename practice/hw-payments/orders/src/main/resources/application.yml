@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/orders}
+    username: ${SPRING_DATASOURCE_USERNAME:ord_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:ord_pass}
+  jpa:
+    hibernate:
+      ddl-auto: update
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: 5672
+    username: guest
+    password: guest
+
+remote:
+  payments-service:
+    base-url: ${PAYMENTS_SERVICE_URL:http://localhost:8081}
+
+server:
+  port: ${PAYMENTS_SERVER_PORT:8082}
+
+app:
+  queues:
+    payment-requests: q.payment.requests
+    payment-outcomes: q.payment.outcomes
