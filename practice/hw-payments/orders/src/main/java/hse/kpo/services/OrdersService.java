@@ -47,8 +47,6 @@ public class OrdersService {
         outboxEvent.setCreatedAt(Instant.now());
         outboxEvent.setProcessedAt(null);
         outboxRepository.save(outboxEvent);
-        log.info(outboxEvent.toString());
-        log.info(outboxRepository.findAll().toString());
 
         return order;
     }
