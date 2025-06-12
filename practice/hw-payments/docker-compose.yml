@@ -1,0 +1,116 @@
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: ./gateway/Dockerfile
+    environment:
+      - PAYMENTS_SERVICE_BASE_URL=http://payments:8080
+      - ORDERS_SERVICE_BASE_URL=http://orders:8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      - payments
+      - orders
+    networks:
+      - app-net
+
+  rabbitmq:
+    image: "rabbitmq:3.13-management"
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - app-net
+
+  payments:
+    build:
+      context: .
+      dockerfile: ./payments/Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://payments-db:5432/payments
+      - SPRING_DATASOURCE_USERNAME=pay_user
+      - SPRING_DATASOURCE_PASSWORD=pay_pass
+      - PAYMENTS_SERVER_PORT=8080
+      - RABBITMQ_HOST=rabbitmq
+    depends_on:
+      payments-db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - app-net
+
+
+  payments-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: payments
+      POSTGRES_USER: pay_user
+      POSTGRES_PASSWORD: pay_pass
+    volumes:
+      - payments_pg_data:/var/lib/postgresql/data
+    networks:
+      - app-net
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U pay_user -d payments" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+
+  orders:
+    build:
+      context: .
+      dockerfile: ./orders/Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://orders-db:5432/orders
+      - SPRING_DATASOURCE_USERNAME=ord_user
+      - SPRING_DATASOURCE_PASSWORD=ord_pass
+      - PAYMENTS_SERVER_PORT=8080
+      - RABBITMQ_HOST=rabbitmq
+    depends_on:
+      orders-db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - app-net
+
+
+  orders-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: orders
+      POSTGRES_USER: ord_user
+      POSTGRES_PASSWORD: ord_pass
+    volumes:
+      - orders_pg_data:/var/lib/postgresql/data
+    networks:
+      - app-net
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ord_user -d orders" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+
+volumes:
+  payments_pg_data:
+  orders_pg_data:
+
+networks:
+  app-net:
